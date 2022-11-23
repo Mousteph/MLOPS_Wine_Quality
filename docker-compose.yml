@@ -1,0 +1,32 @@
+version: '3'
+services:
+  # Backend prediction fast API
+  backendprediction:
+    build: ./src/backend_prediction
+    container_name: backendprediction
+    ports:
+      - "80:80"
+    # networks:
+    #   - fe_be_network
+    # volumes:
+    #   - ./data:/data
+    #   - ./config:/config
+    #   - ./models:/models
+    command: python -m main_backend_prediction
+
+  # frontend:
+  #   build: ./src/application/
+  #   container_name: frontend_streamlit
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "8501:8501"
+  #   networks:
+  #     - fe_be_network
+  #   volumes:
+  #     - ./config:/config
+  #   command: streamlit run main.py
+
+# networks:
+#   fe_be_network:
+#     driver: bridge
