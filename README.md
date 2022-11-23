@@ -1,6 +1,6 @@
 # MLOPS
 
-__AUTHORS__: Moustapha DIOP, Mathieu RIVIER
+__AUTEURS__: Moustapha DIOP, Mathieu RIVIER
 
 ## Sujet
 
@@ -16,3 +16,19 @@ Il faudra que le système soit capable de :
 
 
 *Bonus* : le modèle sera packagé dans un conteneur docker ou sera déployé via Kubernetes / kubeflow
+
+
+## Lancer le projet
+
+```bash
+docker-compose up -d
+```
+
+Ensuite dans votre navigateur préféré allez à l'adresse : *http://localhost:8501* et lancez vos prédictions.
+
+
+## Arréter le projet
+
+```bash
+docker-compose down
+```
