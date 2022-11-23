@@ -23,7 +23,7 @@ class PredictionProducer:
         }
         
         self.producer.send(self.topic_success, message)
-        # self.producer.flush()
+        self.producer.flush()
         
     def produce_error(self, x, msg):
         message = {

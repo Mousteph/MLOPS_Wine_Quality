@@ -62,6 +62,37 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
+  savedata:
+    build: ./src/save_data
+    container_name: save_data
+    depends_on:
+      - brokerkafka
+      - postgresqldbpred
+    networks:
+      - kafka_network
+      - postgresql_network
+    environment:
+      - SERVERS_K=brokerkafka:29092
+      - TOPIC_SUCCESS=prediction_sucess
+      - TOPIC_ERROR=prediction_error
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+      - POSTGRES_URL=postgresqldbpred:5432
+    command: python -m main_save_data
+
+  postgresqldbpred:
+    container_name: postgresqldbpred
+    image: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgresql_network
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+
 networks:
   fe_be_network:
     driver: bridge
@@ -70,5 +101,8 @@ networks:
     driver: bridge
   
   zoo_network:
+    driver: bridge
+
+  postgresql_network:
     driver: bridge
 
