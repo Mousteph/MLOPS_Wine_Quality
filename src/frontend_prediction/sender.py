@@ -1,7 +1,9 @@
 import json
 import requests
+import os
 
-BASE_URL = "http://backendprediction:80"
+# BASE_URL = "http://backendprediction:80"
+BASE_URL = f"http://{os.environ.get('HOST_B')}:{os.environ.get('PORT_B')}"
 
 
 def _request_deco(method):

@@ -8,7 +8,7 @@ import model_prediction
 
 app = FastAPI()
 
-model_path = "regression.joblib"
+model_path = "/model/regression.joblib"
 model = model_prediction.ModelPrediction(model_path)
 
 class Item(BaseModel):

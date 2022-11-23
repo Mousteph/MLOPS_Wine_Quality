@@ -8,10 +8,8 @@ services:
       - "80:80"
     networks:
       - fe_be_network
-    # volumes:
-    #   - ./data:/data
-    #   - ./config:/config
-    #   - ./models:/models
+    volumes:
+      - ./model:/model
     command: python -m main_backend_prediction
 
   frontendprediction:
@@ -23,8 +21,9 @@ services:
       - "8501:8501"
     networks:
       - fe_be_network
-    # volumes:
-    #   - ./config:/config
+    environment:
+      - HOST_B=backendprediction
+      - PORT_B=80
     command: streamlit run main_frontend_prediction.py
 
 networks:
