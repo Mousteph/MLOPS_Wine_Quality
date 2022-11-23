@@ -2,3 +2,4 @@ joblib
 fastapi
 uvicorn
 scikit-learn==1.1.2
+kafka-python

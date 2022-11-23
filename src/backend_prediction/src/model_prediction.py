@@ -1,5 +1,4 @@
 import joblib
-import sklearn
 
 class ModelPrediction:
     def __init__(self, model_path):
@@ -7,8 +6,8 @@ class ModelPrediction:
 
     def prediction(self, x):
         try:
-            return self.model.predict(x)
+            return True, self.model.predict(x)[0]
 
         except Exception as e:
             print(f"{__file__} ERROR: {e}")
-            return None
+            return False, e
