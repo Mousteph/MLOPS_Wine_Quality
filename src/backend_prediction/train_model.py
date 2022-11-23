@@ -7,7 +7,7 @@ def build_model():
     X = df[['size', 'nb_rooms', 'garden']]
     y = df['price']
     model = LinearRegression()
-    model.fit(X, y)
+    model.fit(X.values, y.values)
     joblib.dump(model, "regression.joblib")
     
 if __name__ == '__main__':
