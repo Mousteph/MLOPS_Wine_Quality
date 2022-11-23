@@ -7,4 +7,4 @@ RUN pip install -r requirements.txt
 
 WORKDIR /app
 
-COPY . .
+COPY ./src .
