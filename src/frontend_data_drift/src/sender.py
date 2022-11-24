@@ -33,5 +33,5 @@ def _post_request(url, data):
 def _get_request(url):
     return requests.get(BASE_URL + url)
 
-def get_prediction(json: dict):
-    return _post_request("/predict", json)
+def get_drift():
+    return _get_request("/drift")
