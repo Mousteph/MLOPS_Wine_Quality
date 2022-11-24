@@ -1,0 +1,5 @@
+eurybia
+sqlalchemy
+psycopg2
+pydantic
+pandas
