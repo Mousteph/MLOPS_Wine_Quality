@@ -1,38 +1,6 @@
 version: '3'
 services:
   # Backend prediction fast API
-  backendprediction:
-    build: ./src/backend_prediction
-    container_name: backendprediction
-    depends_on:
-      - brokerkafka
-    ports:
-      - "80:80"
-    networks:
-      - fe_be_network
-      - kafka_network
-    environment:
-      - SERVERS_K=brokerkafka:29092
-      - TOPIC_SUCCESS=prediction_sucess
-      - TOPIC_ERROR=prediction_error
-    volumes:
-      - ./model:/model
-    command: python -m main_backend_prediction
-
-  # Frontend prediction Streamlit
-  frontendprediction:
-    build: ./src/frontend_prediction
-    container_name: frontendprediction
-    depends_on:
-      - backendprediction
-    ports:
-      - "8501:8501"
-    networks:
-      - fe_be_network
-    environment:
-      - HOST_B=backendprediction
-      - PORT_B=80
-    command: streamlit run main_frontend_prediction.py
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
@@ -61,6 +29,55 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  
+  postgresqldbpred:
+    container_name: postgresqldbpred
+    image: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgresql_network
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+  
+  backendprediction:
+    build: ./src/backend_prediction
+    container_name: backendprediction
+    depends_on:
+      - brokerkafka
+    ports:
+      - "80:80"
+    networks:
+      - fe_be_network
+      - kafka_network
+    environment:
+      - SERVERS_K=brokerkafka:29092
+      - TOPIC_SUCCESS=prediction_sucess
+      - TOPIC_ERROR=prediction_error
+    volumes:
+      - ./model:/model
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      " 
+      python -m main_backend_prediction
+      "
+
+  # Frontend prediction Streamlit
+  frontendprediction:
+    build: ./src/frontend_prediction
+    container_name: frontendprediction
+    depends_on:
+      - backendprediction
+    ports:
+      - "8501:8501"
+    networks:
+      - fe_be_network
+    environment:
+      - HOST_B=backendprediction
+      - PORT_B=80
+    command: streamlit run main_frontend_prediction.py
 
   savedata:
     build: ./src/save_data
@@ -79,19 +96,11 @@ services:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=docker
       - POSTGRES_URL=postgresqldbpred:5432
-    command: python -m main_save_data
-
-  postgresqldbpred:
-    container_name: postgresqldbpred
-    image: postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - postgresql_network
-    environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=docker
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      " 
+      python -m main_save_data
+      "
 
 networks:
   fe_be_network:
