@@ -58,11 +58,7 @@ services:
       - TOPIC_ERROR=prediction_error
     volumes:
       - ./model:/model
-    entrypoint: [ '/bin/sh', '-c' ]
-    command: |
-      " 
-      python -m main_backend_prediction
-      "
+    command: python -m main_backend_prediction
 
   # Frontend prediction Streamlit
   frontendprediction:
@@ -96,11 +92,23 @@ services:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=docker
       - POSTGRES_URL=postgresqldbpred:5432
-    entrypoint: [ '/bin/sh', '-c' ]
-    command: |
-      " 
-      python -m main_save_data
-      "
+    command: python -m main_save_data
+  
+  backenddatadrift:
+    build: ./src/backend_data_drift
+    container_name: backenddatadrift
+    depends_on:
+      - postgresqldbpred
+    networks:
+      - postgresql_network
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+      - POSTGRES_URL=postgresqldbpred:5432
+    volumes:
+      - ./data:/data
+    command: python -m main_data_drift
 
 networks:
   fe_be_network:

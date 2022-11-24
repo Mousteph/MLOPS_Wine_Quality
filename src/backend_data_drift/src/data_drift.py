@@ -19,16 +19,22 @@ class DataDriftManager:
         return df
         
     def check(self):
+        df_current = self.posgres.get_prediction(self.last_time)
+        if len(df_current) == 0:
+            return 
+        
         df_baseline = self._get_baseline()
-        df_current = self.posgres.get_prediction(0)
-        self.last_time = time.time()
+       
+        try: 
+            sd = SmartDrift(
+                df_current=df_current,
+                df_baseline=df_baseline,
+            )
         
-        sd = SmartDrift(
-            df_current=df_current,
-            df_baseline=df_baseline,
-        )
-        
-        sd.compile(
-            full_validation=True,
-            datadrift_file=self.data_drift_csv,
-        )
+            sd.compile(
+                full_validation=True,
+                datadrift_file=self.data_drift_csv,
+            )
+            self.last_time = time.time()
+        except Exception as _:
+            pass
