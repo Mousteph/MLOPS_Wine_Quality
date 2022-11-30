@@ -1,7 +1,7 @@
 import requests
 import os
 
-BASE_URL = f"http://{os.environ.get('HOST_B')}:{os.environ.get('PORT_B')}"
+BASE_URL = f"http://{os.environ.get('BACKEND')}"
 
 
 def _request_deco(method):
@@ -28,10 +28,6 @@ def _request_deco(method):
 @_request_deco
 def _post_request(url, data):
     return requests.post(BASE_URL + url, json=data)
-
-@_request_deco
-def _get_request(url):
-    return requests.get(BASE_URL + url)
 
 def get_prediction(json: dict):
     return _post_request("/predict", json)

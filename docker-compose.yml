@@ -42,6 +42,7 @@ services:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=docker
   
+  # Backend prediction
   backendprediction:
     build: ./src/backend_prediction
     container_name: backendprediction
@@ -54,8 +55,7 @@ services:
       - kafka_network
     environment:
       - SERVERS_K=brokerkafka:29092
-      - TOPIC_SUCCESS=prediction_sucess
-      - TOPIC_ERROR=prediction_error
+      - TOPIC_WINE=prediction_wine
     volumes:
       - ./model:/model
     command: python -m main_backend_prediction
@@ -71,8 +71,7 @@ services:
     networks:
       - fe_be_network
     environment:
-      - HOST_B=backendprediction
-      - PORT_B=80
+      - BACKEND=backendprediction:80
     command: streamlit run main_frontend_prediction.py --server.port 8501
 
   savedata:

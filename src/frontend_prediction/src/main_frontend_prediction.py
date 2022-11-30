@@ -16,19 +16,15 @@ st.title("Red Wine Quality")
 
 st1, st2 = st.columns(2)
 
-fixed_aci = st1.number_input("Fixed acidity", min_value=4.60, max_value=15.60, value=8.30)
-vol_aci = st2.number_input("Volatile acidity", min_value=0.12, max_value=1.58, value=0.53)
+fixed_aci = st1.number_input("Fixed acidity", min_value=4.60, value=8.30)
+vol_aci = st2.number_input("Volatile acidity", min_value=0.12, value=0.53)
 
-citric_acid = st1.number_input("Citric acid", min_value=0.00, max_value=0.79, value=0.26)
-sulfur_dioxide = st2.number_input("Sulfur dioxide", min_value=6.00,
-                                  max_value=165.00, value=44.96)
+citric_acid = st1.number_input("Citric acid", min_value=0.00, value=0.26)
+sulfur_dioxide = st2.number_input("Sulfur dioxide", min_value=6.00, value=44.96)
 
-ph = st1.number_input("pH", min_value=2.86, max_value=4.01, value=3.32)
-alcohol = st2.number_input("Alcohol", min_value=8.40, max_value=14.00, value=10.45)
+ph = st1.number_input("pH", min_value=2.86, value=3.32)
+alcohol = st2.number_input("Alcohol", min_value=8.40, value=10.45)
 
-
-def format_price(price: float) -> str:
-    return f"{int(price):_} $".replace('_', ' ')
 
 def format_prediction():
     return {
@@ -46,18 +42,10 @@ def format_quality(quality: float):
 st.write("#")
 
 if st.button("Predict"):
-    data = format_quality(0.2)
-else:
-    data = format_quality(1)
-    
-st.write(f"""
-              ## {data}""")
-
-# y = get_prediction({
-#        "data": [size, nb_rooms, garden == "Yes"]
-#        })
-#
-#    if not y["status"]:
-#        st.error(f"Error during prediction: " + y["message"])
-#    else:
-#        st.write(f"Predicted price {format_price(y['data'])}")
+    y = get_prediction(format_prediction())
+    if not y["status"]:
+        st.error(f"Error during prediction: {y['message']}")
+    else:
+        data = format_quality(y['data'])
+        st.write(f"""## {data}""")
+ 

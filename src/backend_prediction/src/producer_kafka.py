@@ -4,10 +4,9 @@ from typing import List
 import time
 
 class PredictionProducer:
-    def __init__(self, servers: List, topic_success: str, topic_error: str):
+    def __init__(self, servers: List, topic_wine: str):
         self.servers = servers
-        self.topic_success = topic_success
-        self.topic_error = topic_error
+        self.topic_wine = topic_wine
         
         is_ok = False
         producer = None
@@ -29,20 +28,11 @@ class PredictionProducer:
 
         self.producer = producer
 
-    def produce_success(self, x, y):
+    def produce_wine(self, x, y):
         message = {
             "X": x,
             "y": y
         }
         
-        self.producer.send(self.topic_success, message)
+        self.producer.send(self.topic_winw, message)
         self.producer.flush()
-        
-    def produce_error(self, x, msg):
-        message = {
-            "X": x,
-            "msg": msg
-        }
-        
-        self.producer.send(self.topic_error, message)
-        # self.producer.flush()
