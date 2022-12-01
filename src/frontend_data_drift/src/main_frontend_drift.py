@@ -3,8 +3,6 @@ import streamlit as st
 import sender
 import pandas as pd
 import json
-import matplotlib.pyplot as plt
-import numpy as np
 
 st.set_page_config(
     page_title="Red Wine Data Drift",
@@ -20,15 +18,19 @@ st.title("Red Wine Data Drift")
 
 last_AUC = None
 date = None
+chart_data = None
 
-def get_drift():
-    y = sender.refresh_drift()
+def get_drift(new=False):
+    if new:
+        y = sender.new_drift()
+    else:
+        y = sender.refresh_drift()
+        
     if not y["status"]:
         st.error(f"Error during checking data drift: {y['message']}")
         return None
     else:
         d = json.loads(y["data"])
-        print(y["data"])
         return pd.DataFrame(d).drop(columns=["Unnamed: 0"])
     
 def update_auc(data):
@@ -40,6 +42,7 @@ def update_auc(data):
 
 data = get_drift()
 date, last_AUC = update_auc(data)
+chart_data = data
 
 st.write(f"""
          ###
@@ -50,20 +53,23 @@ st.write(f"""
 if st.button("Refresh"):
     data = get_drift()
     date, last_AUC = update_auc(data)
+    chart_data = data
+    
+period = st.number_input("Number of periods", min_value=-1, value=20)
 
 st.write("###")
 
-# chart_data = pd.DataFrame(
-#     np.random.randn(20, 2),
-#     columns=['AUC', "Date"]
-# )
+if period != -1:
+    st.line_chart(chart_data[-period:], x="Date", y="AUC")
+else:
+    st.line_chart(chart_data, x="Date", y="AUC")
 
-# st.line_chart(chart_data, x="Date", y="AUC")
+st.write("##")
 
-# st.write("##")
-
-# if st.button("Test New Entries"):
-#     pass
+if st.button("Test New Entries"):
+    data = get_drift(True)
+    date, last_AUC = update_auc(data)
+    chart_data = data
 
 
 
