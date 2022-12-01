@@ -2,6 +2,7 @@ import requests
 import os
 
 BASE_URL = f"http://{os.environ.get('HOST_B')}:{os.environ.get('PORT_B')}"
+BASE_URL = f"http://localhost:90"
 
 
 def _request_deco(method):
@@ -26,12 +27,11 @@ def _request_deco(method):
     return wrapper
 
 @_request_deco
-def _post_request(url, data):
-    return requests.post(BASE_URL + url, json=data)
-
-@_request_deco
 def _get_request(url):
     return requests.get(BASE_URL + url)
 
-def get_drift():
+def refresh_drift():
     return _get_request("/drift")
+
+def new_drift():
+    return _get_request("/forcedirft")

@@ -12,14 +12,34 @@ st.set_page_config(
     layout="wide"
 )
 
-path_image = "wallpaper.jpg"
+path_image = "../images/wallpaper.jpg"
 
 st.image(path_image, use_column_width=True, caption="Alcohol abuse is dangerous for health")
 
 st.title("Red Wine Data Drift")
 
-last_AUC = 0.5
-date = ""
+last_AUC = None
+date = None
+
+def get_drift():
+    y = sender.refresh_drift()
+    if not y["status"]:
+        st.error(f"Error during checking data drift: {y['message']}")
+        return None
+    else:
+        d = json.loads(y["data"])
+        print(y["data"])
+        return pd.DataFrame(d).drop(columns=["Unnamed: 0"])
+    
+def update_auc(data):
+    if data is not None and len(data) != 0:
+        last = data.iloc[-1]
+        return last[0], last[1]
+    
+    return None, None
+
+data = get_drift()
+date, last_AUC = update_auc(data)
 
 st.write(f"""
          ###
@@ -28,21 +48,22 @@ st.write(f"""
          """)
 
 if st.button("Refresh"):
-    pass
+    data = get_drift()
+    date, last_AUC = update_auc(data)
 
 st.write("###")
 
-chart_data = pd.DataFrame(
-    np.random.randn(20, 2),
-    columns=['AUC', "Date"]
-)
+# chart_data = pd.DataFrame(
+#     np.random.randn(20, 2),
+#     columns=['AUC', "Date"]
+# )
 
-st.line_chart(chart_data, x="Date", y="AUC")
+# st.line_chart(chart_data, x="Date", y="AUC")
 
-st.write("##")
+# st.write("##")
 
-if st.button("Test New Entries"):
-    pass
+# if st.button("Test New Entries"):
+#     pass
 
 
 
