@@ -3,8 +3,7 @@ import os
 
 if __name__ == '__main__':
     servers_kafka = os.environ.get("SERVERS_K")
-    topic_succes = os.environ.get("TOPIC_SUCCESS")
-    topic_error = os.environ.get("TOPIC_ERROR")
+    topic_wine = os.environ.get("TOPIC_WINE")
     
-    consumer = ConsumerManager([servers_kafka], topic_succes, topic_error)
+    consumer = ConsumerManager([servers_kafka], topic_wine)
     consumer.start()

@@ -32,7 +32,7 @@ def format_prediction():
     }
     
 def format_quality(quality: float):
-    if quality < 0.5:
+    if quality <= 0.5:
         data = f"Pretty bad wine 🫗"
     else:
         data = f"Good wine 🍷"

@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
 class PredictionBase(BaseModel):
-    features: list[int]
-    prediction: float
+    features: list[float]
+    quality: int
     heure: int
 
 class PredictionCreate(PredictionBase):

@@ -31,8 +31,8 @@ class PredictionProducer:
     def produce_wine(self, x, y):
         message = {
             "X": x,
-            "y": y
+            "y": float(y) if y is not None else None
         }
         
-        self.producer.send(self.topic_winw, message)
+        self.producer.send(self.topic_wine, message)
         self.producer.flush()

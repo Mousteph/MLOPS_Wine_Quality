@@ -25,7 +25,7 @@ async def response(value: Item):
     x = np.array(value.data).reshape((1, -1))
     success, val = model.prediction(x)
     
-    # producer.produce_wine(value.data, val)
+    producer.produce_wine(value.data, val)
 
     if not success:
         return {

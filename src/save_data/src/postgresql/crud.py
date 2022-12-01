@@ -2,12 +2,16 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 def add_prediction(db: Session, pred: schemas.PredictionCreate):
+    # fixed acidity | volatile acidity | citric acid | total sulfur dioxide	| pH | alcohol | quality
     db_pred = models.Prediction(
-        size=pred.features[0],
-        nbrooms=pred.features[1],
-        garden=pred.features[2],
-        prediction=pred.prediction,
-        heure=pred.heure
+        fixed_acidity=pred.features[0],
+        volatile_acidity=pred.features[1],
+        citric_acid=pred.features[2],
+        sulfur_dioxide=pred.features[3],
+        pH=pred.features[4],
+        alcohol=pred.features[5],
+        quality=pred.quality,
+        heure=pred.heure,
     )
     
     db.add(db_pred)
