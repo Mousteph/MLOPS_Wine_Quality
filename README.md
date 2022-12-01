@@ -1,4 +1,4 @@
-# MLOPS
+# MLOPS : Red Wine Quality
 
 __AUTEURS__: Moustapha DIOP, Mathieu RIVIER
 
