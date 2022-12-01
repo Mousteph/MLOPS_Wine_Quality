@@ -10,7 +10,6 @@ DATABASE = os.environ.get("POSTGRES_DB")
 URL = os.environ.get("POSTGRES_URL")
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://{USER}:{PASSWORD}@{URL}/{DATABASE}"
-# SQLALCHEMY_DATABASE_URL = f"postgresql://docker:docker@localhost:5432/docker"
 
 repeat = 10
 is_ok = False

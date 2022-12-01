@@ -32,7 +32,6 @@ class DataDriftManager:
         
     def check(self):
         df_current = self.posgres.get_prediction(self.last_time)
-        # df_current = self._get_baseline()
         if len(df_current) == 0:
             return 
         
