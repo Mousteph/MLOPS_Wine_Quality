@@ -2,6 +2,7 @@ todo.txt
 Untitled.ipynb
 drifting.csv
 .DS_Store
+data/drift/*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
