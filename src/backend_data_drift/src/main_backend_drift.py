@@ -13,7 +13,7 @@ DRIFTING = "/data/drift/drifting_wine.csv"
 data_drift = DataDriftManager(DRIFTING, TRANING_DATA)
 sched = BackgroundScheduler()
 
-sched.add_job(data_drift.check, 'interval', seconds=6)
+sched.add_job(data_drift.check, 'interval', minutes=60)
 sched.start()
 
 app = FastAPI()

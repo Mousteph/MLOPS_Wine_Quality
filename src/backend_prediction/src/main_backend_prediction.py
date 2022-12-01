@@ -18,12 +18,13 @@ model = model_prediction.ModelPrediction(model_path)
 producer = producer_kafka.PredictionProducer([servers_kafka], topic_wine)
 
 class Item(BaseModel):
-    data: List #size, nb_rooms, garden
+    data: List 
 
 @app.post("/predict")
 async def response(value: Item):
     x = np.array(value.data).reshape((1, -1))
     success, val = model.prediction(x)
+    val = val[0]
     
     producer.produce_wine(value.data, val)
 
@@ -38,6 +39,27 @@ async def response(value: Item):
         "status": 1,
         "message": "",
         "data": float(val)
+    }
+
+@app.post("/batch")
+async def response(value: Item):
+    x = np.array(value.data)
+    success, val = model.prediction(x)
+   
+    for i in range(len(value.data)): 
+        producer.produce_wine(value.data[i], val[i])
+    
+    if not success:
+        return {
+            "status": 0,
+            "message": "Prediction Internal Error",
+            "data": None
+        }
+
+    return {
+        "status": 1,
+        "message": "",
+        "data": val.tolist()
     }
 
 if __name__ == '__main__':

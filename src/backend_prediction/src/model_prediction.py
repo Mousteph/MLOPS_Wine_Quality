@@ -6,7 +6,7 @@ class ModelPrediction:
 
     def prediction(self, x):
         try:
-            return True, self.model.predict(x)[0]
+            return True, self.model.predict(x)
 
         except Exception as e:
             print(f"{__file__} ERROR: {e}")

@@ -31,8 +31,8 @@ class DataDriftManager:
         df.to_csv(self.data_drift_csv, index=True, header=False, mode='a')
         
     def check(self):
-        # df_current = self.posgres.get_prediction(self.last_time)
-        df_current = self._get_baseline()
+        df_current = self.posgres.get_prediction(self.last_time)
+        # df_current = self._get_baseline()
         if len(df_current) == 0:
             return 
         
