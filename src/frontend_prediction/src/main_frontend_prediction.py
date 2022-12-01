@@ -7,7 +7,6 @@ st.set_page_config(
     layout="wide"
 )
 
-path_image = "https://i.pinimg.com/originals/55/52/9c/55529c372a893066ccad6faeda5292b4.jpg"
 path_image = "wallpaper.jpg"
 
 st.image(path_image, use_column_width=True, caption="Alcohol abuse is dangerous for health")

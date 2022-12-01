@@ -92,36 +92,36 @@ services:
       - POSTGRES_URL=postgresqldbpred:5432
     command: python -m main_save_data
   
-  backenddatadrift:
-    build: ./src/backend_data_drift
-    container_name: backenddatadrift
-    depends_on:
-      - postgresqldbpred
-    networks:
-      - postgresql_network
-      - drift_network
-    environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=docker
-      - POSTGRES_URL=postgresqldbpred:5432
-    volumes:
-      - ./data:/data
-    command: python -m main_backend_drift
+  # backenddatadrift:
+  #   build: ./src/backend_data_drift
+  #   container_name: backenddatadrift
+  #   depends_on:
+  #     - postgresqldbpred
+  #   networks:
+  #     - postgresql_network
+  #     - drift_network
+  #   environment:
+  #     - POSTGRES_USER=docker
+  #     - POSTGRES_PASSWORD=docker
+  #     - POSTGRES_DB=docker
+  #     - POSTGRES_URL=postgresqldbpred:5432
+  #   volumes:
+  #     - ./data:/data
+  #   command: python -m main_backend_drift
   
-  frontenddatadrift:
-    build: ./src/frontend_data_drift
-    container_name: frontenddatadrift
-    depends_on:
-      - backenddatadrift
-    networks:
-      - drift_network
-    ports:
-      - "8502:8502"
-    environment:
-      - HOST_B=backenddatadrift
-      - PORT_B=90
-    command: streamlit run main_frontend_drift.py --server.port 8502
+  # frontenddatadrift:
+  #   build: ./src/frontend_data_drift
+  #   container_name: frontenddatadrift
+  #   depends_on:
+  #     - backenddatadrift
+  #   networks:
+  #     - drift_network
+  #   ports:
+  #     - "8502:8502"
+  #   environment:
+  #     - HOST_B=backenddatadrift
+  #     - PORT_B=90
+  #   command: streamlit run main_frontend_drift.py --server.port 8502
 
 networks:
   fe_be_network:
