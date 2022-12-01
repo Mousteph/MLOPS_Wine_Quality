@@ -18,7 +18,7 @@ def get_good_data(path):
 
 def get_noisy_data(path):
     data = pd.read_pickle(path).drop(columns=['quality'])
-    data = data + np.random.normal(0.1, 0.01, data.shape) 
+    data[:data.shape[0] // 2] = data[:data.shape[0] // 2] + np.random.normal(0.1, 0.01, (data.shape[0] // 2,  data.shape[1]))
     return data.values
 
 def send_data(data):
