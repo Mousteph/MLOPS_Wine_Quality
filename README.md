@@ -17,6 +17,9 @@ Il faudra que le système soit capable de :
 
 *Bonus* : le modèle sera packagé dans un conteneur docker ou sera déployé via Kubernetes / kubeflow
 
+## Architecture
+
+![alt text](images/architecture.png)
 
 ## Lancer le projet
 
@@ -24,11 +27,18 @@ Il faudra que le système soit capable de :
 docker-compose up -d
 ```
 
-Ensuite dans votre navigateur préféré allez à l'adresse : *http://localhost:8501* et lancez vos prédictions.
-
+Dans votre navigateur préféré allez à l'adresse :
+- *http://localhost:8501* pour lancer vos prédictions.
+- *http://localhost:8502* pour vérifier la distribution des donneés.
 
 ## Arréter le projet
 
 ```bash
 docker-compose down
+```
+
+## Supprimer les données des containers
+
+```bash
+docker-compose rm -svf
 ```
