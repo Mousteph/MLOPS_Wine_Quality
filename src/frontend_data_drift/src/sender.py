@@ -1,8 +1,7 @@
 import requests
 import os
 
-BASE_URL = f"http://{os.environ.get('HOST_B')}:{os.environ.get('PORT_B')}"
-BASE_URL = f"http://localhost:90"
+BASE_URL = f"http://{os.environ.get('BACKEND')}"
 
 
 def _request_deco(method):

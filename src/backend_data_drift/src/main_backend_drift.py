@@ -7,8 +7,8 @@ import pandas as pd
 TRANING_DATA = "/data/training/wine.pkl"
 DRIFTING = "/data/drift/drifting_wine.csv"
 
-TRANING_DATA = "../../../data/training/wine.pkl"
-DRIFTING = "../../../data/drift/drifting_wine.csv"
+# TRANING_DATA = "../../../data/training/wine.pkl"
+# DRIFTING = "../../../data/drift/drifting_wine.csv"
 
 data_drift = DataDriftManager(DRIFTING, TRANING_DATA)
 sched = BackgroundScheduler()

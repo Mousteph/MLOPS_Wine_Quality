@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide"
 )
 
-path_image = "../images/wallpaper.jpg"
+path_image = "wallpaper.jpg"
 
 st.image(path_image, use_column_width=True, caption="Alcohol abuse is dangerous for health")
 
@@ -70,22 +70,3 @@ if st.button("Test New Entries"):
     data = get_drift(True)
     date, last_AUC = update_auc(data)
     chart_data = data
-
-
-
-
-# def get_values():
-#     y = sender.get_drift()
-#     data = json.loads(y)
-#     data = pd.DataFrame(data).drop(columns=["Unnamed: 0"])
-#     data["auc"] = data["auc"].astype('float')
-    
-#     return data
-
-# data = get_values()
-
-# fig, ax = plt.subplots()
-# print(data.auc)
-# ax.plot(data.auc)
-
-# st.pyplot(fig)
