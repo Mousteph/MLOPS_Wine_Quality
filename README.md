@@ -42,3 +42,10 @@ docker-compose down
 ```bash
 docker-compose rm -svf
 ```
+
+## Sources
+
+- Dataset : https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009
+- Images :
+  - https://www.pinterest.fr/pin/85075880441435976/
+  - https://www.google.com/url?sa=i&url=https%3A%2F%2Fwallpaper.dog%2Fwine-red-and-white-wallpapers&psig=AOvVaw1sDha95y11BNYE_pUbyeDt&ust=1670012891233000&source=images&cd=vfe&ved=0CA4QjhxqFwoTCPDS4v2g2fsCFQAAAAAdAAAAABAD
