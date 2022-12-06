@@ -59,9 +59,10 @@ period = st.number_input("Number of periods", min_value=-1, value=20)
 
 st.write("###")
 
-if period != -1:
-    st.line_chart(chart_data[-period:], x="Date", y="AUC")
-else:
+if chart_data is not None:
+    if period != -1:
+        chart_data = chart_data.iloc[-period:]
+    
     st.line_chart(chart_data, x="Date", y="AUC")
 
 st.write("##")
