@@ -19,6 +19,8 @@ Il faudra que le système soit capable de :
 
 ## Architecture
 
+À noter: Chaque brique de l'architecture est individuellement dockeriser et le projet entier fonctionne à l'aide d'un docker compose. Les différentes parties communiquent grâce à des sous-réseaux liés deux-à-deux. 
+
 ![alt text](images/architecture.png)
 
 ## Lancer le projet
