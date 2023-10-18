@@ -11,9 +11,21 @@ class ManagerPostgres:
                         "citric acid", "total sulfur dioxide",
                         "pH", "alcohol"]
         
-    def get_prediction(self, time: int):
+    def get_prediction(self, time: int) -> pd.DataFrame:
+        """Return predictions from database
+
+        Args:
+            time (int): Time to filter predictions
+
+        Returns:
+            pd.DataFrame: Return a dataframe with predictions
+        """
+        
         predictions = crud.get_predictions(self.db, time)
         return pd.DataFrame(predictions, columns=self.columns)
         
     def close(self):
+        """Close database connection
+        """
+        
         self.db.close()

@@ -1,7 +1,18 @@
 from sqlalchemy.orm import Session
 from . import models 
+from typing import List
 
-def get_predictions(db: Session, time: int):
+def get_predictions(db: Session, time: int) -> List:
+    """Return predictions from database
+
+    Args:
+        db (Session): SQLAlchemy session
+        time (int): Filter predictions by time
+
+    Returns:
+        List: A list of predictions
+    """
+    
     return db.query(models.Prediction)\
         .with_entities(models.Prediction.fixed_acidity,
                        models.Prediction.volatile_acidity,
