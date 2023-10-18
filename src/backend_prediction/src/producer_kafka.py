@@ -5,6 +5,16 @@ import time
 
 class PredictionProducer:
     def __init__(self, servers: List, topic_wine: str):
+        """Init PredictionProducer class
+
+        Args:
+            servers (List): List of Kafka brokers
+            topic_wine (str): Wine topic name in Kafka
+
+        Raises:
+            RuntimeError: If cannot connect to Kafka broker
+        """
+        
         self.servers = servers
         self.topic_wine = topic_wine
         
@@ -28,7 +38,14 @@ class PredictionProducer:
 
         self.producer = producer
 
-    def produce_wine(self, x, y):
+    def produce_wine(self, x: List, y: float):
+        """Send message to Kafka broker producer
+
+        Args:
+            x (List): List of input data
+            y (float): Value of prediction
+        """
+        
         message = {
             "X": x,
             "y": float(y) if y is not None else None
