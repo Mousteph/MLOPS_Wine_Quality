@@ -1,5 +1,6 @@
 import streamlit as st
 from sender import get_prediction
+from typing import Dict
 
 st.set_page_config(
     page_title="Red Wine",
@@ -25,16 +26,31 @@ ph = st1.number_input("pH", min_value=2.86, value=3.32)
 alcohol = st2.number_input("Alcohol", min_value=8.40, value=10.45)
 
 
-def format_prediction():
+def format_prediction() -> Dict[str, float]:
+    """Return formatted prediction
+
+    Returns:
+        Dict[str, float]: Tuple of input data
+    """
+    
     return {
         "data": [fixed_aci, vol_aci, citric_acid, sulfur_dioxide, ph, alcohol]
     }
     
-def format_quality(quality: float):
+def format_quality(quality: float) -> str:
+    """Format quality prediction
+
+    Args:
+        quality (float): Value of quality
+
+    Returns:
+        str: Message of quality of wine
+    """
+    
     if quality <= 0.5:
-        data = f"Pretty bad wine 🫗"
+        data = "Pretty bad wine 🫗"
     else:
-        data = f"Good wine 🍷"
+        data = "Good wine 🍷"
         
     return data
 
