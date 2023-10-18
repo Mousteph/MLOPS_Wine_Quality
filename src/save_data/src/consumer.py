@@ -37,4 +37,4 @@ class ConsumerManager:
         for message in self.consumer_data:
             data = message.value
             if message.topic == self.topic_wine and data["y"] is not None:
-                self.postgres_db.add_new_prediction(data["X"], round(data["y"]))
+                self.postgres_db.add_new_prediction(data["X"], int(round(data["y"])))

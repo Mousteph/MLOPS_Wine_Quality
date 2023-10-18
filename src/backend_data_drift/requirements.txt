@@ -1,8 +1,8 @@
-eurybia
+eurybia==1.1.0
 sqlalchemy
 psycopg2
-pydantic
-pandas
-fastapi
-uvicorn
+pydantic==1.10.0
+pandas==1.4.4
+fastapi==0.87.0
+uvicorn==0.19.0
 apscheduler

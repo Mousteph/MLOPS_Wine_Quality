@@ -3,7 +3,7 @@ from pydantic import BaseModel
 class PredictionBase(BaseModel):
     features: list[float]
     quality: int
-    heure: int
+    heure: float
 
 class PredictionCreate(PredictionBase):
     pass

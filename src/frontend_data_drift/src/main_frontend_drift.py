@@ -36,7 +36,7 @@ def get_drift(new=False):
 def update_auc(data):
     if data is not None and len(data) != 0:
         last = data.iloc[-1]
-        return last[0], last[1]
+        return last.iloc[0], last.iloc[1]
     
     return None, None
 

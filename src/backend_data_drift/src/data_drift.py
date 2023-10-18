@@ -36,8 +36,8 @@ class DataDriftManager:
             return 
         
         df_baseline = self._get_baseline()
-       
-        try: 
+ 
+        try:
             sd = SmartDrift(
                 df_current=df_current,
                 df_baseline=df_baseline,

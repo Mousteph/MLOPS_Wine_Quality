@@ -7,7 +7,7 @@ class Prediction(Base):
     __tablename__ = "predictions_db_wine"
 
     id = Column(Integer, primary_key=True, index=True)
-    heure = Column(Integer)
+    heure = Column(Float)
     
     fixed_acidity = Column(Float)
     volatile_acidity = Column(Float)
