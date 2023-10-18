@@ -45,6 +45,48 @@ Our project employs a modular architecture with Docker containers. Each componen
    docker-compose rm -svf
    ```
 
+## Testing Data Monitoring
+
+To test the monitoring of data drift, you can use the following command:
+
+```bash
+python send_batch_data.py [-h] {corrupted,normal,noisy}
+```
+
+### Command Usage:
+
+#### Positional Arguments:
+
+- `{corrupted,normal,noisy}`: Specifies the type of data to process. You have three options:
+    - `corrupted`: Data that does not respect the initial distribution.
+    - `normal`: Data that respects the initial distribution.
+    - `noisy`: Data that respects the initial distribution but with added noise.
+
+#### Options:
+
+- `-h, --help`: Shows the help message and exits.
+
+Use this command to simulate different data scenarios and test the data monitoring capabilities of the system.
+
+### Example Usage:
+
+To send a batch of normal data for monitoring, use the following command:
+
+```bash
+python send_batch_data.py normal
+```
+
+For corrupted or noisy data, replace `normal` with `corrupted` or `noisy` accordingly.
+
+
+## Retraining the Model
+
+To retrain the model, you can use the following command:
+
+```bash
+python train_model.py
+```
+
 ## Resources
 
 - **Dataset**: [Red Wine Quality Dataset](https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009)

@@ -2,7 +2,13 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 import joblib
     
-def build_model(path):
+def build_model(path: str):
+    """Train model and save it as a joblib file in model folder as wine_class.joblib
+
+    Args:
+        path (str): Path to dataset
+    """
+    
     df = pd.read_pickle(path)
     y = df.quality
     X = df.drop(columns=["quality"])
