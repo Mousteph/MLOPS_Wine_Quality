@@ -2,6 +2,13 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 def add_prediction(db: Session, pred: schemas.PredictionCreate):
+    """Add prediction to database
+
+    Args:
+        db (Session): SQLAlchemy session
+        pred (schemas.PredictionCreate): Prediction to add
+    """
+    
     db_pred = models.Prediction(
         fixed_acidity=pred.features[0],
         volatile_acidity=pred.features[1],

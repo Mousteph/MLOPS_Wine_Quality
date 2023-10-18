@@ -10,6 +10,13 @@ class ManagerPostgres:
         self.db = SessionLocal()
     
     def add_new_prediction(self, x: List[float], y: int):
+        """Add new prediction to database
+
+        Args:
+            x (List[float]): List of input data
+            y (int): Value of prediction
+        """
+        
         user = schemas.PredictionCreate(features=x, quality=y, heure=time.time())
         crud.add_prediction(self.db, user)
         

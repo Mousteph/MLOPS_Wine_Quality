@@ -6,6 +6,16 @@ import time
 
 class ConsumerManager:
     def __init__(self, servers: List, topic_wine: str):
+        """Init ConsumerManager class
+
+        Args:
+            servers (List): List of Kafka brokers
+            topic_wine (str): Wine topic name in Kafka consumer
+
+        Raises:
+            RuntimeError: Cannot connect to Kafka broker
+        """
+        
         self.servers = servers
         self.topic_wine = topic_wine
         
@@ -34,6 +44,9 @@ class ConsumerManager:
         self.postgres_db = manager.ManagerPostgres()
         
     def start(self):
+        """Read data from Kafka broker and add new prediction to database
+        """
+        
         for message in self.consumer_data:
             data = message.value
             if message.topic == self.topic_wine and data["y"] is not None:
